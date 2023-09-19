@@ -1,0 +1,30 @@
+version: '1.0'
+volumes:
+  mods:
+  world:
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: serverimage
+    command: sh run.sh
+    stdin_open: true
+    tty: true 
+    restart: unless-stopped
+    container_name: MinecraftServer
+    ports:
+      - 25565:25565
+    volumes:
+      - mods:/minecraft/mods
+      - world:/minecraft/world
+    environment:
+      - allowflight=true
+      - difficulty=medium
+      - maxplayers=1
+      - motd=TEST
+      - onlinemode=false
+      - pvp=true
+      - simulationdistance=4
+      - viewdistance=10
